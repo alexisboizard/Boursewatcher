@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.AddStockActivity">
+    <ImageView
+        android:id="@+id/back_arrow"
+        android:layout_width="20dp"
+        android:layout_height="100dp"
+        android:src="@drawable/back_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/title"/>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:fontFamily="@font/jomhuria"
+        android:text="@string/ajouter_une_action"
+        android:textColor="#1F1F1F"
+        android:textSize="64sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/back_arrow"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_company_code"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        android:layout_margin="16dp"
+        android:hint="@string/symbole_company"
+        app:endIconMode="clear_text"
+        app:startIconContentDescription="Code de l'entreprise"
+        android:outlineProvider="background"
+        android:layout_marginTop="80dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_company_code"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="text"
+            android:outlineProvider="background"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_quantity"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/til_company_code"
+        android:layout_margin="16dp"
+        android:hint="@string/quantite"
+        app:endIconMode="clear_text"
+        app:startIconContentDescription="Code de l'entreprise"
+        android:outlineProvider="background"
+        android:layout_marginTop="80dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_quantity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="numberDecimal"
+            android:outlineProvider="background"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_purshase_price"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/til_quantity"
+        android:layout_margin="16dp"
+        android:hint="@string/prix_d_achat"
+        app:endIconMode="clear_text"
+        app:startIconContentDescription="Code de l'entreprise"
+        android:outlineProvider="background"
+        android:layout_marginTop="80dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_purshase_price"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="numberDecimal"
+            android:outlineProvider="background"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_purshase_date"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/til_purshase_price"
+        android:layout_margin="16dp"
+        android:hint="@string/date_d_achat"
+        app:endIconMode="clear_text"
+        app:startIconContentDescription="Code de l'entreprise"
+        android:outlineProvider="background"
+        android:layout_marginTop="80dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_purshase_date"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="date"
+            android:outlineProvider="background"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/submit_stock"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:text="@string/ajouter"
+        app:layout_constraintTop_toBottomOf="@id/til_purshase_date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="60dp"
+        android:layout_marginTop="64dp"
+        android:backgroundTint="#1F1F1F"
+        android:textColor="#FFFFFF"
+        app:circularflow_radiusInDP="100dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

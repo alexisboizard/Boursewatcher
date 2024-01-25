@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="category_array">
+        <item>Général</item>
+        <item>Forex</item>
+        <item>Crypto</item>
+        <item>Fusion</item>
+    </string-array>
+</resources>

@@ -1,0 +1,12 @@
+
+<resources>
+    <color name="seed">#1F1F1F</color>
+    <color name="secondary">#EEEEEE</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="up_color">#25C485</color>
+    <color name="down_color">#F0453A</color>
+    <color name="transparent">#00000000</color>
+    <color name="disable_button">#808080</color>
+    <color name="weak_password">#FF9800</color>
+</resources>
