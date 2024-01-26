@@ -10,6 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.TextView
+import androidx.core.view.isEmpty
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.alexisboiz.boursewatcher.R
@@ -20,6 +22,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import org.w3c.dom.Text
 
 class FriendAddFragment : Fragment() {
     lateinit var firestore: FirebaseFirestore
@@ -42,10 +45,19 @@ class FriendAddFragment : Fragment() {
         val startCameraButton = view.findViewById<MaterialButton>(R.id.btn_scan)
         val addButton = view.findViewById<MaterialButton>(R.id.btn_add_friend)
         val friendCode = view.findViewById<EditText>(R.id.et_add_friend)
+        val emptyListText = view.findViewById<TextView>(R.id.empty_text)
         val recyclerView =
             view.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.rv_add_friend)
         firestore = FirebaseFirestore.getInstance()
         val listOfUser = mutableListOf<FirebaseUser>()
+
+        if(recyclerView.isEmpty()){
+            emptyListText.visibility = TextView.VISIBLE
+            recyclerView.visibility = RecyclerView.INVISIBLE
+        }else{
+            emptyListText.visibility = TextView.INVISIBLE
+            recyclerView.visibility = RecyclerView.VISIBLE
+        }
 
         recyclerView.apply {
             layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)

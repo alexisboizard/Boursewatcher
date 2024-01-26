@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexisboiz.boursewatcher.R
-import com.alexisboiz.boursewatcher.adapters.VerticalStockListAdapter
+import com.alexisboiz.boursewatcher.views.market_fragment.VerticalStockListAdapter
 import com.alexisboiz.boursewatcher.domain.TradedAssetRepository
 import com.alexisboiz.boursewatcher.model.StocksModel.Meta
 import com.alexisboiz.boursewatcher.model.StocksModel.RecyclerHorizontalCard

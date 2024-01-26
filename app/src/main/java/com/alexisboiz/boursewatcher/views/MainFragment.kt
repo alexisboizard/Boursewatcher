@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.isEmpty
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -43,12 +44,21 @@ class MainFragment : Fragment() {
         val walletValueTV = view.findViewById<TextView>(R.id.tv_account_balance_value)
         var walletValue : Double? = 0.0
         val stockViewModel by activityViewModels<StockViewModel>()
+        val emptyRecyclerText = view.findViewById<TextView>(R.id.empty_text)
 
         walletDetail.setOnClickListener(){
             val fragment = WalletFragment.newInstance()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.main_fragment, fragment)
                 .commit()
+        }
+
+        if(horizontalRV.isEmpty()){
+            emptyRecyclerText.visibility = TextView.VISIBLE
+            emptyRecyclerText.visibility = RecyclerView.INVISIBLE
+        }else{
+            emptyRecyclerText.visibility = TextView.INVISIBLE
+            emptyRecyclerText.visibility = RecyclerView.VISIBLE
         }
 
         horizontalRV.apply {

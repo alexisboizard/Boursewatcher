@@ -2,7 +2,6 @@ package com.alexisboiz.boursewatcher.views.market_fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +11,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alexisboiz.boursewatcher.R
-import com.alexisboiz.boursewatcher.adapters.GainerListAdapter
-import com.alexisboiz.boursewatcher.adapters.VerticalStockListAdapter
 import com.alexisboiz.boursewatcher.model.DayGainersModel.Quotes
 import com.alexisboiz.boursewatcher.viewmodel.LogoViewModel
 import com.alexisboiz.boursewatcher.views.SearchActivity
@@ -43,13 +40,15 @@ class MarketFragment : Fragment() {
         val symbolListHorizontal = mutableListOf<String>()
         stockViewModel.dayGainersLiveData.observe(viewLifecycleOwner){response ->
             //response.finance.result[0].quotes
-            Log.e("HSL", response.finance?.result?.get(0)?.quotes.toString())
             quotesList = response.finance?.result?.get(0)?.quotes!!
-            logoViewModel.logoHorizontalLiveData.observe(viewLifecycleOwner){
-                horizontalRecycler?.adapter = GainerListAdapter(quotesList, it)
-            }
             for(quote in quotesList){
                 quote.symbol?.let { symbolListHorizontal.add(it) }
+            }
+            logoViewModel.logoHorizontalLiveData.observe(viewLifecycleOwner){
+                stockViewModel.stockDetailForGainers.observe(viewLifecycleOwner){element ->
+                    horizontalRecycler?.adapter = GainerListAdapter(quotesList, it,element)
+                }
+                stockViewModel.fetchGainerDetails(symbolListHorizontal)
             }
             logoViewModel.getLogoUri(symbolListHorizontal)
         }

@@ -1,18 +1,14 @@
 package com.alexisboiz.boursewatcher.views.market_fragment
 
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
 import com.alexisboiz.boursewatcher.R
-import com.alexisboiz.boursewatcher.adapters.VerticalStockListAdapter
 import com.alexisboiz.boursewatcher.databinding.FragmentStockDetailBinding
 import com.alexisboiz.boursewatcher.model.StocksModel.RecyclerHorizontalCard
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartAnimationType
@@ -20,7 +16,6 @@ import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartStackingType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
 import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth

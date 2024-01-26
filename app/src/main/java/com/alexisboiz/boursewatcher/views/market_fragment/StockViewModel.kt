@@ -32,6 +32,9 @@ class StockViewModel: ViewModel() {
     private var _stockDetForSearch : MutableLiveData<MutableList<RecyclerHorizontalCard>> = MutableLiveData()
     val stockDetForSearch : LiveData<MutableList<RecyclerHorizontalCard>> = _stockDetForSearch
 
+    private var _stockDetailForGainers : MutableLiveData<MutableList<RecyclerHorizontalCard>> = MutableLiveData()
+    val stockDetailForGainers : LiveData<MutableList<RecyclerHorizontalCard>> = _stockDetailForGainers
+
     fun fetchStock(symbolList:MutableList<String>){
         val list = mutableListOf<RecyclerHorizontalCard>()
         for(symbol in symbolList){
@@ -128,6 +131,25 @@ class StockViewModel: ViewModel() {
                         chartData?.let { it1 -> RecyclerHorizontalCard(stock, it1, "") }
                             ?.let { it2 -> list.add(it2) }
                         _favoriteLiveData.postValue(list)
+                    }
+            }
+        }
+    }
+
+    fun fetchGainerDetails(symbolList:MutableList<String>){
+        val list = mutableListOf<RecyclerHorizontalCard>()
+        for(symbol in symbolList){
+            viewModelScope.launch {
+                StockRepository.getStock(symbol)
+                    .catch {
+                        Log.e("StockViewModel", "fetchGainerDetails: ${it.message}")
+                    }
+                    .collect(){
+                        val chartData : ArrayList<Double>? = it.body()?.chart?.result?.get(0)?.indicators?.quote?.get(0)?.open
+                        val stock : Stock? = it.body()
+                        chartData?.let { it1 -> RecyclerHorizontalCard(stock, it1, "") }
+                            ?.let { it2 -> list.add(it2) }
+                        _stockDetailForGainers.postValue(list)
                     }
             }
         }
