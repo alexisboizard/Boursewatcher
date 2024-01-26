@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "789447611876",
+    "firebase_url": "https://boursewatcher-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "boursewatcher",
+    "storage_bucket": "boursewatcher.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:789447611876:android:8f3fd2349d6ac525f4e3f1",
+        "android_client_info": {
+          "package_name": "com.alexisboiz.boursewatcher"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "789447611876-roj20vbt3ps59mdpdo93qheav8up8jaf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCz7QF7TSJ5CxJqaucgLUYo49LzGsDNzcU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "789447611876-roj20vbt3ps59mdpdo93qheav8up8jaf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
