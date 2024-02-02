@@ -6,12 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alexisboiz.boursewatcher.domain.NewsRepository
-import com.alexisboiz.boursewatcher.domain.StockRepository
 import com.alexisboiz.boursewatcher.model.NewsModel.News
-import com.alexisboiz.boursewatcher.model.Quotes
-import com.alexisboiz.boursewatcher.model.StocksModel.Meta
-import com.alexisboiz.boursewatcher.model.StocksModel.RecyclerHorizontalCard
-import com.alexisboiz.boursewatcher.model.StocksModel.Stock
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 

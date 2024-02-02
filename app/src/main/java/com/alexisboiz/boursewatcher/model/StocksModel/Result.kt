@@ -1,11 +1,12 @@
-package com.alexisboiz.boursewatcher.model.StocksModel
+package com.alexisboiz.boursewatcher
 
-import java.io.Serializable
+import com.google.gson.annotations.SerializedName
+
 
 data class Result (
 
-    val meta       : Meta?          = Meta(),
-    val timestamp  : ArrayList<Int> = arrayListOf(),
-    val indicators : Indicators?    = Indicators()
+  @SerializedName("meta"       ) var meta       : Meta?          = Meta(),
+  @SerializedName("timestamp"  ) var timestamp  : ArrayList<Int> = arrayListOf(),
+  @SerializedName("indicators" ) var indicators : Indicators?    = Indicators()
 
-) : Serializable
+)

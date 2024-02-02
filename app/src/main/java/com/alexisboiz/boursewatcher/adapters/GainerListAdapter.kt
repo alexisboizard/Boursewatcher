@@ -1,23 +1,20 @@
 package com.alexisboiz.boursewatcher.adapters
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.alexisboiz.boursewatcher.R
-import com.alexisboiz.boursewatcher.model.DayGainersModel.Quotes
-import com.alexisboiz.boursewatcher.views.market_fragment.StockDetailFragment
+import com.alexisboiz.boursewatcher.model.Gainers
+import com.bumptech.glide.Glide
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
 import kotlin.math.round
 
 class GainerListAdapter(
-    val gainerList : MutableList<Quotes>,
-    private val imageUriList : MutableList<String>
+    val gainerList : ArrayList<Gainers>,
 ) : RecyclerView.Adapter<GainerListAdapter.ViewHolder>() {
 
     companion object{
@@ -79,6 +76,12 @@ class GainerListAdapter(
                 it
             )
         }).toString() + "%"
+
+        if(gainerList[position].image != null){
+            Glide.with(holder.item.context)
+                .load(gainerList[position].image)
+                .into(holder.company_logo)
+        }
 
 //        val chartModel : AAChartModel = AAChartModel()
 //            .chartType(AAChartType.Spline)

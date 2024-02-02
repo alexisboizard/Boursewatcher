@@ -5,18 +5,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.alexisboiz.boursewatcher.R
-import com.alexisboiz.boursewatcher.model.DayGainersModel.Quotes
 import com.alexisboiz.boursewatcher.model.StocksModel.RecyclerHorizontalCard
+import com.bumptech.glide.Glide
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartAnimationType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartStackingType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
 import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
-import kotlin.math.round
 import kotlin.math.roundToInt
 
 class FavoriteListAdapter(
@@ -41,7 +39,7 @@ class FavoriteListAdapter(
         return favoriteList.size
     }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val meta = favoriteList[position].stock?.chart?.result?.get(0)?.meta
+        val meta = favoriteList[position].stock?.data?.chart?.result?.get(0)?.meta
         val priceList = favoriteList[position].chartData
         var currency = ""
         when (meta?.currency){
@@ -90,5 +88,10 @@ class FavoriteListAdapter(
                     .data(priceList.toTypedArray())
             ))
         holder.chart.aa_drawChartWithChartModel(chartModel)
+        if(favoriteList[position].stock?.logo?.get(0)?.image != "null"){
+            Glide.with(holder.item.context)
+                .load(favoriteList[position].stock?.logo?.get(0)?.image)
+                .into(holder.company_logo)
+        }
     }
 }
