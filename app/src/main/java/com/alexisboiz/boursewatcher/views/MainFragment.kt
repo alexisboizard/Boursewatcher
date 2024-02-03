@@ -81,7 +81,7 @@ class MainFragment : Fragment() {
                             stockQuantityList.forEachIndexed { index, qte ->
                                 Log.d("qte", qte.toString())
                                 Log.d("walletValue", walletValue.toString())
-                                walletValue = walletValue!! + stock.stock!!.chart!!.result.get(0).meta!!.regularMarketPrice!!.times(qte)
+                                walletValue = walletValue!! + stock.stock!!.data?.chart!!.result.get(0).meta!!.regularMarketPrice!!.times(qte)
                             }
                         }
                     }

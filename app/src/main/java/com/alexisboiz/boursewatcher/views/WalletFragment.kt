@@ -10,10 +10,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alexisboiz.boursewatcher.Meta
 import com.alexisboiz.boursewatcher.R
 import com.alexisboiz.boursewatcher.views.market_fragment.VerticalStockListAdapter
 import com.alexisboiz.boursewatcher.domain.TradedAssetRepository
-import com.alexisboiz.boursewatcher.model.StocksModel.Meta
 import com.alexisboiz.boursewatcher.model.StocksModel.RecyclerHorizontalCard
 import com.alexisboiz.boursewatcher.model.TradedAsset.TradedAsset
 import com.alexisboiz.boursewatcher.viewmodel.LogoViewModel
@@ -25,9 +25,6 @@ import com.google.firebase.firestore.firestore
 
 class WalletFragment : Fragment() {
     val stockViewModel by activityViewModels<StockViewModel>()
-    val logoViewModel by activityViewModels<LogoViewModel>()
-    var metaList : MutableList<Meta> = mutableListOf()
-    var priceChartList : MutableList<ArrayList<Double>> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,13 +93,12 @@ class WalletFragment : Fragment() {
                                 stockViewModel.stockForWalletLiveData.observe(viewLifecycleOwner){responseList ->
                                     for(response in responseList){
                                         stockList.add(response)
-                                        walletAmount += response.stock?.chart?.result?.get(0)?.meta?.regularMarketPrice!! * document.data["quantity"].toString().toDouble()
+                                        walletAmount += response.stock?.data?.chart?.result?.get(0)?.meta?.regularMarketPrice!! * document.data["quantity"].toString().toDouble()
                                     }
                                     walletAmountTV.text = walletAmount.toString() + "€"
                                     Log.e("WalletFragment", "onViewCreated: $stockList")
                                     recycler?.adapter = VerticalStockListAdapter(
                                         stockList,
-                                        mutableListOf()
                                     )
                                 }
                             }

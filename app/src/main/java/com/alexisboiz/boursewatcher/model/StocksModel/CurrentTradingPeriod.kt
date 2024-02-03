@@ -1,13 +1,12 @@
-package com.alexisboiz.boursewatcher.model.StocksModel
+package com.alexisboiz.boursewatcher
 
-import kotlinx.android.parcel.Parcelize
-import java.io.Serializable
-@Parcelize
+import com.google.gson.annotations.SerializedName
+
 
 data class CurrentTradingPeriod (
 
-  val pre     : Pre?     = Pre(),
-  val regular : Regular? = Regular(),
-  val post    : Post?    = Post()
+  @SerializedName("pre"     ) var pre     : Pre?     = Pre(),
+  @SerializedName("regular" ) var regular : Regular? = Regular(),
+  @SerializedName("post"    ) var post    : Post?    = Post()
 
-) : Serializable
+)

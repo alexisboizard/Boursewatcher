@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object NetworkDataSource {
-    private const val BASE_URL = "https://query1.finance.yahoo.com/"
+    private const val BASE_URL = "https://api-boursewatcher.onrender.com/"
 
     private val logInterceptor = HttpLoggingInterceptor(){
         Log.d("Okhttp", it)
