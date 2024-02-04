@@ -62,7 +62,7 @@ class VerticalStockListAdapter(val listStock : MutableList<RecyclerHorizontalCar
             val stockDetailFragment = StockDetailFragment()
             closeValue = listStock[position].stock?.data?.chart?.result?.get(0)?.indicators?.quote?.get(0)?.close
             openValue = listStock[position].stock?.data?.chart?.result?.get(0)?.indicators?.quote?.get(0)?.open
-            chartValue = listStock[position].chartData
+            chartValue = listStock[position].chartData // TODO : Inutile duplication de openValue à refactor
 
             stockDetailFragment.arguments = Bundle().apply {
                 putStringArrayList("displayInfo", display)

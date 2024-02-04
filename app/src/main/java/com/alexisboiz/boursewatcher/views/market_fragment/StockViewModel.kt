@@ -94,7 +94,7 @@ class StockViewModel: ViewModel() {
                     .catch {
                         Log.e("StockViewModel", "getStockForWallet(): ${it.message}")
                     }
-                    .collect(){
+                    .collect{
                         val chartData : ArrayList<Double>? = it.body()?.data?.chart?.result?.get(0)?.indicators?.quote?.get(0)?.open
                         val stock = it.body()
                         chartData?.let { it1 -> RecyclerHorizontalCard(stock, it1) }
@@ -145,9 +145,13 @@ class StockViewModel: ViewModel() {
                         Log.e("StockViewModel", "fetchGainerDetails: ${it.message}")
                     }
                     .collect(){
-                        val chartData : ArrayList<Double>? = it.body()?.chart?.result?.get(0)?.indicators?.quote?.get(0)?.open
-                        val stock : Stock? = it.body()
-                        chartData?.let { it1 -> RecyclerHorizontalCard(stock, it1, "") }
+                        val chartData : ArrayList<Double>? = it.body()?.data?.chart?.result?.get(0)?.indicators?.quote?.get(0)?.open
+                        val stock = it.body()
+                        chartData.let { it1 -> it1?.let { it2 ->
+                            RecyclerHorizontalCard(stock,
+                                it2
+                            )
+                        } }
                             ?.let { it2 -> list.add(it2) }
                         _stockDetailForGainers.postValue(list)
                     }

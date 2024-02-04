@@ -1,14 +1,15 @@
 package com.alexisboiz.boursewatcher.views.market_fragment
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.alexisboiz.boursewatcher.R
-import com.alexisboiz.boursewatcher.model.StocksModel.RecyclerHorizontalCard
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartAnimationType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartStackingType
@@ -49,7 +50,7 @@ class GainerListAdapter(
     }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var currency = ""
-        when (gainerList[position].currency){
+        when (gainerList[position].currency) {
             "USD" -> currency = "$"
             "EUR" -> currency = "€"
             "GBP" -> currency = "£"
@@ -67,7 +68,7 @@ class GainerListAdapter(
             "NOK" -> currency = "kr"
             "MXN" -> currency = "Mex$"
             "NZD" -> currency = "NZ$"
-
+        }
 
         holder.symbol.text = gainerList[position].symbol
         holder.regularMarketPrice.text = gainerList[position].regularMarketPrice.toString() + currency
@@ -84,7 +85,7 @@ class GainerListAdapter(
             )
         }).toString() + "%"
 
-        val priceList = details[position].chartData
+        val priceList = gainerList[position].open
         val chartModel : AAChartModel = AAChartModel()
             .chartType(AAChartType.Spline)
             .backgroundColor("#ffffff")
@@ -108,22 +109,22 @@ class GainerListAdapter(
         holder.chart.aa_drawChartWithChartModel(chartModel)
 
         val display = arrayListOf(
-            details[position].stock?.chart?.result?.get(0)?.meta?.symbol.toString(),
-            (((details[position].stock?.chart?.result?.get(0)?.meta?.regularMarketPrice?.times(
+            gainerList[position].symbol.toString(),
+            (((gainerList[position].regularMarketPrice?.times(
                 100.0
             ))?.roundToInt() ?: 0) /100.0).toString(),
-            details[position].stock?.chart?.result?.get(0)?.meta?.exchangeName.toString() + " - " + details[position]?.stock?.chart?.result?.get(0)?.meta?.currency.toString(),
-            details[position].stock?.chart?.result?.get(0)?.meta?.previousClose.toString(),
+            gainerList[position].exchange + " - " +currency,
+            gainerList[position].regularMarketPreviousClose.toString()
         )
-        holder.item.setOnClickListener(){
+        holder.item.setOnClickListener{
             val stockDetailFragment = StockDetailFragment()
-            VerticalStockListAdapter.closeValue = details[position].stock?.chart?.result?.get(0)?.indicators?.quote?.get(0)?.close
-            VerticalStockListAdapter.openValue = details[position].stock?.chart?.result?.get(0)?.indicators?.quote?.get(0)?.open
-            VerticalStockListAdapter.chartValue = details[position].chartData
+            closeValue = gainerList[position].close
+            openValue = gainerList[position].open
+            chartValue = gainerList[position].open // TODO : Fix duplication
 
             stockDetailFragment.arguments = Bundle().apply {
                 putStringArrayList("displayInfo", display)
-                putIntegerArrayList("volumeValue", details[position].stock?.chart?.result?.get(0)?.indicators?.quote?.get(0)?.volume)
+                putIntegerArrayList("volumeValue", gainerList[position].volume) // TODO : Fix API avec data pour chart
             }
             val activity = holder.item.context as AppCompatActivity
             activity.supportFragmentManager.let { stockDetailFragment.show(it,"StockDetailFragment") }
@@ -133,5 +134,5 @@ class GainerListAdapter(
                 .load(gainerList[position].image)
                 .into(holder.company_logo)
         }
-    }
+}
 }

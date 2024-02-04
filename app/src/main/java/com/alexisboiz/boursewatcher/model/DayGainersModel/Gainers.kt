@@ -80,6 +80,9 @@ data class Gainers (
   @SerializedName("cryptoTradeable"                   ) var cryptoTradeable                   : Boolean? = null,
   @SerializedName("displayName"                       ) var displayName                       : String?  = null,
   @SerializedName("symbol"                            ) var symbol                            : String?  = null,
-  @SerializedName("image"                             ) var image                             : String?  = null
+  @SerializedName("image"                             ) var image                             : String?  = null,
+  @SerializedName("open"                              ) var open                              : ArrayList<Double>,
+  @SerializedName("close"                             ) var close                             : ArrayList<Double>,
+  @SerializedName("volume"                            ) var volume                            : ArrayList<Int>,
 
 )

@@ -30,16 +30,25 @@ class StockDetailFragment : BottomSheetDialogFragment() {
     private var volumeValue: ArrayList<Int>? = null
     private var openValue: ArrayList<Double>? = null
     private var chartValue: ArrayList<Double>? = null
+    private var origine: Char = ' '
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             displayInfo = it.getStringArrayList("displayInfo")
             volumeValue = it.getIntegerArrayList("volumeValue")
+            origine = it.getChar("origine")
         }
-        closeValue = VerticalStockListAdapter.closeValue
-        openValue = VerticalStockListAdapter.openValue
-        chartValue = VerticalStockListAdapter.chartValue
+
+        if(origine == 'V'){
+            closeValue = VerticalStockListAdapter.closeValue
+            openValue = VerticalStockListAdapter.openValue
+            chartValue = VerticalStockListAdapter.chartValue
+        }else{
+            closeValue = GainerListAdapter.closeValue
+            openValue = GainerListAdapter.openValue
+            chartValue = GainerListAdapter.chartValue
+        }
     }
 
     override fun onCreateView(
@@ -137,11 +146,13 @@ class StockDetailFragment : BottomSheetDialogFragment() {
         fun newInstance(
             displayInfo: ArrayList<String>,
             volumeValue: ArrayList<Int>?,
+            origine : Char
         ) =
             StockDetailFragment().apply {
                 arguments = Bundle().apply {
                     putStringArrayList("displayInfo",displayInfo)
                     putIntegerArrayList("volumeValue",volumeValue)
+                    putChar("origine", origine)
                 }
             }
     }

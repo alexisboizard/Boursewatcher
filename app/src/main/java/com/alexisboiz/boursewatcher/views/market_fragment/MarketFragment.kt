@@ -11,10 +11,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alexisboiz.boursewatcher.R
-import com.alexisboiz.boursewatcher.model.DayGainersModel.Quotes
-import com.alexisboiz.boursewatcher.viewmodel.LogoViewModel
-import com.alexisboiz.boursewatcher.adapters.GainerListAdapter
-import com.alexisboiz.boursewatcher.adapters.VerticalStockListAdapter
 import com.alexisboiz.boursewatcher.views.SearchActivity
 
 class MarketFragment : Fragment() {
@@ -34,18 +30,6 @@ class MarketFragment : Fragment() {
         }
 
         stockViewModel.dayGainersLiveData.observe(viewLifecycleOwner){response ->
-            //response.finance.result[0].quotes
-            quotesList = response.finance?.result?.get(0)?.quotes!!
-            for(quote in quotesList){
-                quote.symbol?.let { symbolListHorizontal.add(it) }
-            }
-            logoViewModel.logoHorizontalLiveData.observe(viewLifecycleOwner){
-                stockViewModel.stockDetailForGainers.observe(viewLifecycleOwner){element ->
-                    horizontalRecycler?.adapter = GainerListAdapter(quotesList, it,element)
-                }
-                stockViewModel.fetchGainerDetails(symbolListHorizontal)
-            }
-            logoViewModel.getLogoUri(symbolListHorizontal)
             horizontalRecycler?.adapter = GainerListAdapter(response)
         }
         stockViewModel.getDayGainers()
