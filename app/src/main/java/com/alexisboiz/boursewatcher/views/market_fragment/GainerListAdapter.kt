@@ -1,4 +1,4 @@
-package com.alexisboiz.boursewatcher.adapters
+package com.alexisboiz.boursewatcher.views.market_fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,14 +10,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.alexisboiz.boursewatcher.R
-import com.alexisboiz.boursewatcher.model.DayGainersModel.Quotes
-import com.alexisboiz.boursewatcher.views.market_fragment.StockDetailFragment
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartAnimationType
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartStackingType
+import com.github.aachartmodel.aainfographics.aachartcreator.AAChartType
+import com.alexisboiz.boursewatcher.model.Gainers
+import com.bumptech.glide.Glide
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartView
+import com.github.aachartmodel.aainfographics.aachartcreator.AASeriesElement
 import kotlin.math.round
+import kotlin.math.roundToInt
 
 class GainerListAdapter(
-    val gainerList : MutableList<Quotes>,
-    private val imageUriList : MutableList<String>
+    val gainerList : ArrayList<Gainers>,
 ) : RecyclerView.Adapter<GainerListAdapter.ViewHolder>() {
 
     companion object{
@@ -35,7 +40,7 @@ class GainerListAdapter(
         val company_logo: ImageView = item.findViewById<ImageView>(R.id.company_logo)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GainerListAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val item = LayoutInflater.from(parent.context).inflate(R.layout.horizontal_stock_item, parent, false)
         return ViewHolder(item)
     }
@@ -45,7 +50,7 @@ class GainerListAdapter(
     }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var currency = ""
-        when (gainerList[position].currency){
+        when (gainerList[position].currency) {
             "USD" -> currency = "$"
             "EUR" -> currency = "€"
             "GBP" -> currency = "£"
@@ -63,8 +68,8 @@ class GainerListAdapter(
             "NOK" -> currency = "kr"
             "MXN" -> currency = "Mex$"
             "NZD" -> currency = "NZ$"
-
         }
+
         holder.symbol.text = gainerList[position].symbol
         holder.regularMarketPrice.text = gainerList[position].regularMarketPrice.toString() + currency
 
@@ -80,26 +85,54 @@ class GainerListAdapter(
             )
         }).toString() + "%"
 
-//        val chartModel : AAChartModel = AAChartModel()
-//            .chartType(AAChartType.Spline)
-//            .backgroundColor("#ffffff")
-//            .dataLabelsEnabled(false)
-//            .xAxisVisible(false)
-//            .yAxisVisible(false)
-//            .legendEnabled(false)
-//            .tooltipEnabled(false)
-//            .touchEventEnabled(false)
-//            .animationType(AAChartAnimationType.EaseOutQuart)
-//            .animationDuration(1200)
-//            .colorsTheme(arrayOf("#1f1f1f"))
-//            .stacking(AAChartStackingType.False)
-//            .markerRadius(0)
-//            .margin(arrayOf(20, 20, 20, 20))
-//            .series(arrayOf(
-//                AASeriesElement()
-//                    .name("")
-//                    .data(priceList[position].toTypedArray())
-//            ))
-//        holder.chart.aa_drawChartWithChartModel(chartModel)
-    }
+        val priceList = gainerList[position].open
+        val chartModel : AAChartModel = AAChartModel()
+            .chartType(AAChartType.Spline)
+            .backgroundColor("#ffffff")
+            .dataLabelsEnabled(false)
+            .xAxisVisible(false)
+            .yAxisVisible(false)
+            .legendEnabled(false)
+            .tooltipEnabled(false)
+            .touchEventEnabled(false)
+            .animationType(AAChartAnimationType.EaseOutQuart)
+            .animationDuration(1200)
+            .colorsTheme(arrayOf("#1f1f1f"))
+            .stacking(AAChartStackingType.False)
+            .markerRadius(0)
+            .margin(arrayOf(20, 20, 20, 20))
+            .series(arrayOf(
+                AASeriesElement()
+                    .name("")
+                    .data(priceList.toTypedArray())
+            ))
+        holder.chart.aa_drawChartWithChartModel(chartModel)
+
+        val display = arrayListOf(
+            gainerList[position].symbol.toString(),
+            (((gainerList[position].regularMarketPrice?.times(
+                100.0
+            ))?.roundToInt() ?: 0) /100.0).toString(),
+            gainerList[position].exchange + " - " +currency,
+            gainerList[position].regularMarketPreviousClose.toString()
+        )
+        holder.item.setOnClickListener{
+            val stockDetailFragment = StockDetailFragment()
+            closeValue = gainerList[position].close
+            openValue = gainerList[position].open
+            chartValue = gainerList[position].open // TODO : Fix duplication
+
+            stockDetailFragment.arguments = Bundle().apply {
+                putStringArrayList("displayInfo", display)
+                putIntegerArrayList("volumeValue", gainerList[position].volume) // TODO : Fix API avec data pour chart
+            }
+            val activity = holder.item.context as AppCompatActivity
+            activity.supportFragmentManager.let { stockDetailFragment.show(it,"StockDetailFragment") }
+        }
+        if(gainerList[position].image != null){
+            Glide.with(holder.item.context)
+                .load(gainerList[position].image)
+                .into(holder.company_logo)
+        }
+}
 }

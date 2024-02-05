@@ -8,22 +8,30 @@ import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Build
 import android.os.Bundle
+import android.os.LocaleList
+import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.RadioGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.cardview.widget.CardView
+import androidx.core.os.LocaleListCompat
 import com.alexisboiz.boursewatcher.MainActivity
 import com.alexisboiz.boursewatcher.R
 import com.alexisboiz.boursewatcher.databinding.FragmentSettingLangagesBinding
 import com.alexisboiz.boursewatcher.utils.LocaleManager
+import com.google.android.gms.common.internal.Constants
+import com.google.android.gms.common.internal.service.Common
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.util.Locale
 
 class SettingLangagesFragment : BottomSheetDialogFragment() {
     lateinit var binding: FragmentSettingLangagesBinding
+    private var localeManager: LocaleManager? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -47,11 +55,13 @@ class SettingLangagesFragment : BottomSheetDialogFragment() {
         val radioGroup = binding.root.findViewById<RadioGroup>(R.id.rg_langages)
         val sharedPreference =  requireActivity().getSharedPreferences("LANGUAGE", Context.MODE_PRIVATE)
         val editor = sharedPreference.edit()
+        var language : String =""
+
         radioGroup.check(R.id.rb_french)
         radioGroup.setOnCheckedChangeListener { group, checkedId ->
             when(checkedId){
                 R.id.rb_french -> {
-                    LocaleManager.setLocale(requireActivity(), "fr")
+                    language = "fr"
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.main_fragment, SettingFragment.newInstance())
                         .commit()
@@ -78,6 +88,18 @@ class SettingLangagesFragment : BottomSheetDialogFragment() {
                         .commit()
                 }
             }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                context?.let {
+                    context?.getSystemService(LocaleManager::class.java)
+                        ?.setLocale(it,"fr")
+                }
+            } else {
+                AppCompatDelegate.setApplicationLocales(
+                    LocaleListCompat.forLanguageTags(
+                        "fr"
+                    )
+                )
+            }
             editor.apply()
         }
 
@@ -96,6 +118,7 @@ class SettingLangagesFragment : BottomSheetDialogFragment() {
                 override fun onSlide(bottomSheet: View, slideOffset: Float) = Unit
             })
         }
+
     }
 
     companion object {

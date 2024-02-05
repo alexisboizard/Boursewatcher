@@ -1,10 +1,14 @@
 package com.alexisboiz.boursewatcher
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import com.alexisboiz.boursewatcher.model.TradedAsset.TradedAsset
+import com.alexisboiz.boursewatcher.utils.LocaleManager
 import com.alexisboiz.boursewatcher.views.market_fragment.StockViewModel
 import com.alexisboiz.boursewatcher.views.AddStockActivity
 import com.alexisboiz.boursewatcher.views.friends_fragment.FriendFragment

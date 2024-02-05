@@ -23,6 +23,17 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        buildFeatures{
+            buildConfig = true
+        }
+    }
+
+    flavorDimensions += "env"
+    productFlavors {
+        create("dev") {
+            dimension = "env"
+            versionNameSuffix = "-dev"
+        }
     }
 
     buildTypes {

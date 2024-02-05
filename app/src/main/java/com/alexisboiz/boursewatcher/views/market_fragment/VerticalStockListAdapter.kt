@@ -1,4 +1,4 @@
-package com.alexisboiz.boursewatcher.adapters
+package com.alexisboiz.boursewatcher.views.market_fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +12,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.alexisboiz.boursewatcher.R
 import com.alexisboiz.boursewatcher.model.StocksModel.RecyclerHorizontalCard
-import com.alexisboiz.boursewatcher.views.market_fragment.StockDetailFragment
 import com.bumptech.glide.Glide
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartAnimationType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
@@ -25,7 +24,7 @@ import kotlin.math.abs
 import kotlin.math.roundToInt
 
 
-class VerticalStockListAdapter(val listStock : MutableList<RecyclerHorizontalCard>, val imageUriList: MutableList<String>)
+class VerticalStockListAdapter(val listStock : MutableList<RecyclerHorizontalCard>)
     : RecyclerView.Adapter<VerticalStockListAdapter.ViewHolder>() {
     companion object{
         var closeValue : ArrayList<Double>? = arrayListOf()
@@ -50,29 +49,29 @@ class VerticalStockListAdapter(val listStock : MutableList<RecyclerHorizontalCar
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val meta =  listStock[position]?.stock?.data?.chart?.result?.get(0)?.meta
         val display = arrayListOf(
-            listStock[position].stock?.chart?.result?.get(0)?.meta?.symbol.toString(),
-            (((listStock[position].stock?.chart?.result?.get(0)?.meta?.regularMarketPrice?.times(
+            meta?.symbol.toString(),
+            ((( meta?.regularMarketPrice?.times(
                 100.0
             ))?.roundToInt() ?: 0) /100.0).toString(),
-            listStock[position].stock?.chart?.result?.get(0)?.meta?.exchangeName.toString() + " - " + listStock[position]?.stock?.chart?.result?.get(0)?.meta?.currency.toString(),
-            listStock[position].stock?.chart?.result?.get(0)?.meta?.previousClose.toString(),
+            meta?.exchangeName.toString() + " - " +  meta?.currency.toString(),
+            meta?.previousClose.toString(),
         )
         holder.item.setOnClickListener(){
             val stockDetailFragment = StockDetailFragment()
-            closeValue = listStock[position].stock?.chart?.result?.get(0)?.indicators?.quote?.get(0)?.close
-            openValue = listStock[position].stock?.chart?.result?.get(0)?.indicators?.quote?.get(0)?.open
-            chartValue = listStock[position].chartData
+            closeValue = listStock[position].stock?.data?.chart?.result?.get(0)?.indicators?.quote?.get(0)?.close
+            openValue = listStock[position].stock?.data?.chart?.result?.get(0)?.indicators?.quote?.get(0)?.open
+            chartValue = listStock[position].chartData // TODO : Inutile duplication de openValue à refactor
 
             stockDetailFragment.arguments = Bundle().apply {
                 putStringArrayList("displayInfo", display)
-                putIntegerArrayList("volumeValue", listStock[position].stock?.chart?.result?.get(0)?.indicators?.quote?.get(0)?.volume)
+                putIntegerArrayList("volumeValue", listStock[position].stock?.data?.chart?.result?.get(0)?.indicators?.quote?.get(0)?.volume)
             }
             val activity = holder.item.context as AppCompatActivity
             activity.supportFragmentManager.let { stockDetailFragment.show(it,"StockDetailFragment") }
         }
         Log.e("VerticalStockListAdapter", "onBindViewHolder: $listStock")
-        val meta = listStock[position].stock?.chart?.result?.get(0)?.meta
         val priceList = listStock[position].chartData
         var currency = ""
         when (meta?.currency){
@@ -131,10 +130,12 @@ class VerticalStockListAdapter(val listStock : MutableList<RecyclerHorizontalCar
             ))
         holder.chart.aa_drawChartWithChartModel(chartModel)
 
-        if(listStock[position].logoUrl != null){
-            Glide.with(holder.item.context)
-                .load(listStock[position].logoUrl)
-                .into(holder.companyLogo)
+        if(listStock[position].stock?.logo?.isEmpty() == false){
+            if(listStock[position].stock?.logo?.get(0)?.image != "null"){
+                Glide.with(holder.item.context)
+                    .load(listStock[position].stock?.logo?.get(0)?.image)
+                    .into(holder.companyLogo)
+            }
         }
     }
 }

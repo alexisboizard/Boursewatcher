@@ -1,12 +1,11 @@
-package com.alexisboiz.boursewatcher.model.StocksModel
+package com.alexisboiz.boursewatcher
 
-import java.io.Serializable
-
+import com.google.gson.annotations.SerializedName
 
 
 data class Chart (
 
-    val result : ArrayList<Result> = arrayListOf(),
-    val error  : String?           = null
+  @SerializedName("result" ) var result : ArrayList<Result> = arrayListOf(),
+  @SerializedName("error"  ) var error  : String?           = null
 
-) : Serializable
+)
