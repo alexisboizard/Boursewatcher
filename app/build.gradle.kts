@@ -34,6 +34,13 @@ android {
             dimension = "env"
             versionNameSuffix = "-dev"
         }
+        create("ppr") {
+            dimension = "env"
+            versionNameSuffix = "-ppr"
+        }
+        create("prod") {
+            dimension = "env"
+        }
     }
 
     buildTypes {

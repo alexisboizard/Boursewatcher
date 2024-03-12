@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.alexisboiz.boursewatcher.R
+import com.alexisboiz.boursewatcher.domain.StocksInfoRepository
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartAnimationType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartStackingType
@@ -49,6 +50,7 @@ class GainerListAdapter(
         return gainerList.size
     }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
         var currency = ""
         when (gainerList[position].currency) {
             "USD" -> currency = "$"

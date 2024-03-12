@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.userProfileChangeRequest
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.remote.FirestoreChannel
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -113,5 +114,14 @@ class FirebaseService {
 
     fun getUserAvatar() : StorageReference {
         return firebaseStorage.reference.child("users/${this.auth.currentUser?.uid}/avatar.jpg")
+    }
+
+    fun putInFirestore(path : String, data : HashMap<String,String?>) : Flow<Boolean> = flow{
+        var isProcessingOk : Boolean = false
+        val ref = Firebase.firestore.collection(path)
+        ref.add(data).addOnCompleteListener{
+            isProcessingOk = !it.isSuccessful
+        }
+        emit(isProcessingOk)
     }
 }

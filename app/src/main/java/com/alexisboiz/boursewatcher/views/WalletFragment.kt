@@ -10,13 +10,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.alexisboiz.boursewatcher.Meta
 import com.alexisboiz.boursewatcher.R
 import com.alexisboiz.boursewatcher.views.market_fragment.VerticalStockListAdapter
-import com.alexisboiz.boursewatcher.domain.TradedAssetRepository
+import com.alexisboiz.boursewatcher.domain.StocksInfoRepository
 import com.alexisboiz.boursewatcher.model.StocksModel.RecyclerHorizontalCard
 import com.alexisboiz.boursewatcher.model.TradedAsset.TradedAsset
-import com.alexisboiz.boursewatcher.viewmodel.LogoViewModel
 import com.alexisboiz.boursewatcher.views.market_fragment.StockViewModel
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.Firebase
@@ -44,7 +42,7 @@ class WalletFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val addStockButton = view.findViewById<MaterialButton>(R.id.add_stock_button)
-        val tradedAssetRepository = TradedAssetRepository(this.requireContext())
+        val tradedAssetRepository = StocksInfoRepository(this.requireContext())
 
 
         addStockButton.setOnClickListener() {

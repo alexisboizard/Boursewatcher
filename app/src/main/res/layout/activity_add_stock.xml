@@ -6,14 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".views.AddStockActivity">
-    <ImageView
-        android:id="@+id/back_arrow"
-        android:layout_width="20dp"
-        android:layout_height="100dp"
-        android:src="@drawable/back_arrow"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/title"/>
 
     <TextView
         android:id="@+id/title"
@@ -24,7 +16,7 @@
         android:textColor="#1F1F1F"
         android:textSize="64sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/back_arrow"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <com.google.android.material.textfield.TextInputLayout
