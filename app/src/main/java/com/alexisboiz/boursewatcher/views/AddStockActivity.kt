@@ -6,15 +6,11 @@ import android.util.Log
 import android.widget.EditText
 import androidx.lifecycle.MutableLiveData
 import com.alexisboiz.boursewatcher.R
-import com.alexisboiz.boursewatcher.domain.TradedAssetRepository
 import com.alexisboiz.boursewatcher.model.TradedAsset.TradedAsset
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
-import com.google.firebase.database.database
 import com.google.firebase.firestore.firestore
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
 
 class AddStockActivity : AppCompatActivity() {
     val tradedAssetLiveData : MutableLiveData<TradedAsset> = MutableLiveData()

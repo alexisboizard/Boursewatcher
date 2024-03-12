@@ -11,6 +11,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alexisboiz.boursewatcher.R
+import com.alexisboiz.boursewatcher.domain.StocksInfoRepository
+import com.alexisboiz.boursewatcher.model.StocksModel.StockInfo
 import com.alexisboiz.boursewatcher.views.SearchActivity
 
 class MarketFragment : Fragment() {
@@ -23,6 +25,8 @@ class MarketFragment : Fragment() {
     ): View {
         val view :View = inflater.inflate(R.layout.fragment_market, container, false)
         val horizontalRecycler = view.findViewById<RecyclerView>(R.id.horizontal_recycler_view)
+        val stocksInfoRepository = context?.let { StocksInfoRepository(it) }
+
 
         horizontalRecycler?.apply {
             this.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)

@@ -10,6 +10,8 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import com.alexisboiz.boursewatcher.R
 import com.alexisboiz.boursewatcher.databinding.FragmentStockDetailBinding
+import com.alexisboiz.boursewatcher.domain.datasource.DistantDataSource
+import com.alexisboiz.boursewatcher.domain.service.FirebaseService
 import com.alexisboiz.boursewatcher.model.StocksModel.RecyclerHorizontalCard
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartAnimationType
 import com.github.aachartmodel.aainfographics.aachartcreator.AAChartModel
@@ -92,7 +94,6 @@ class StockDetailFragment : BottomSheetDialogFragment() {
         minPrice.text = ((closeValueClean.min()* 100.0).roundToInt() / 100.0).toString()
         maxPrice.text = ((closeValueClean.max()* 100.0).roundToInt() / 100.0).toString()
 
-
         var volAvg = 0
         for (vol in volumeValue!!){
             if (vol == null) continue
@@ -117,7 +118,7 @@ class StockDetailFragment : BottomSheetDialogFragment() {
                 val favoriteStock = hashMapOf(
                     "symbol" to displayInfo?.get(0),
                 )
-                favoriteRef.add(favoriteStock)
+                DistantDataSource.firebaseService.putInFirestore("users/${user?.uid}/favorites",favoriteStock)
             }else{
                 favorite.setImageResource(R.drawable.favorite_unselected)
                 favorite.tag = "unselected"
