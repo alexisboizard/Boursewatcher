@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".views.friends_fragment.FriendFragment"
-    android:background="#eeeeee">
+    tools:context=".views.FriendFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,46 +13,33 @@
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/mes_amis"
+            android:text="Mes amis"
             android:fontFamily="@font/jomhuria"
             android:textSize="64sp"
             android:gravity="center"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
-        <ImageButton
-            android:id="@+id/btn_notifications"
-            android:layout_width="50dp"
-            android:layout_height="64dp"
-            android:src="@drawable/baseline_notifications_24"
-            android:elevation="0dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/tl_friends"
-            android:layout_marginEnd="20dp"
-            android:background="#eeeeee"
-            />
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl_friends"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:tabIndicatorColor="#000000"
+            app:tabIndicatorColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginHorizontal="30dp"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
-            app:tabTextColor="#1F1F1F"
-            android:backgroundTint="@color/white">
+            app:tabTextColor="@color/seed">
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/ti_friends"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mon_portefeuille"/>
+                android:text="Mon portefeuille"/>
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/ti_requests"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/ajouter_un_portefeuille"/>
+                android:text="Ajouter un portefeuille"/>
         </com.google.android.material.tabs.TabLayout>
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fcv_friends"
@@ -63,6 +49,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:name="com.alexisboiz.boursewatcher.views.FriendQrFragment"
             />
 
 

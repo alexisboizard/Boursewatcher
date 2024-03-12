@@ -1,13 +1,14 @@
-package com.alexisboiz.boursewatcher
+package com.alexisboiz.boursewatcher.model.StocksModel
 
-import com.google.gson.annotations.SerializedName
-
+import android.os.Parcel
+import android.os.Parcelable
+import java.io.Serializable
 
 data class Post (
 
-  @SerializedName("timezone"  ) var timezone  : String? = null,
-  @SerializedName("end"       ) var end       : Int?    = null,
-  @SerializedName("start"     ) var start     : Int?    = null,
-  @SerializedName("gmtoffset" ) var gmtoffset : Int?    = null
+  val timezone  : String? = null,
+  val end       : Int?    = null,
+  val start     : Int?    = null,
+  val gmtoffset : Int?    = null
 
-)
+) : Serializable

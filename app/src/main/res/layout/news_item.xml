@@ -2,9 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/element"
-    android:backgroundTint="@color/white">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
         android:id="@+id/thumbnail"
@@ -23,6 +21,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@id/thumbnail"
         app:layout_constraintEnd_toEndOf="parent"
+        android:text="L'Europe hésite et Wall Street est vue en hausse avec l'accalmie sur les taux."
         android:fontFamily="@font/plus_jakarta_sans"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -41,7 +40,8 @@
         android:layout_marginHorizontal="20dp"
         android:textSize="12sp"
         android:fontFamily="@font/plus_jakarta_sans"
-        android:textColor="#1F1F1F"/>
+        android:text="PARIS (Reuters) - Wall Street est attendue en légère hausse mercredi à l'ouverture, tandis que les Bourses européennes tentent un timide rebond à mi-séance après quatre sessions d'affilée de baisse, la tendance positive étant soutenue par une accalmie précaire sur le marché obligataire en attendant la publication en fin de semaine des chiffres de l'inflation en zone euro et aux Etats-Unis."/>
+
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="0dp"
         android:layout_height="1dp"
@@ -49,7 +49,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="30dp"
-        app:dividerColor="#1F1F1F"
+        app:dividerColor="@color/seed"
         android:layout_marginTop="5dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

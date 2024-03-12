@@ -4,12 +4,12 @@
     android:layout_height="100dp"
     android:layout_margin="16dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/vertical_card_background">
+    android:background="@drawable/horizontal_card_background">
 
     <ImageView
         android:id="@+id/company_logo"
-        android:layout_width="30dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:src="@drawable/apple_logo"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -44,7 +44,7 @@
         android:layout_margin="10dp"
         android:fontFamily="Plus Jakarta Sans"
         android:textSize="16sp"
-        android:textColor="#000000"/>
+        android:textColor="@color/black"/>
     <ImageView
         android:id="@+id/evolv_logo"
         android:layout_width="16sp"

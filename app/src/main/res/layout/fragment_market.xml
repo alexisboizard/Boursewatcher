@@ -5,14 +5,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.market_fragment.MarketFragment">
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    tools:context=".views.MarketFragment">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#EEEEEE">
+            android:background="@color/secondary">
 
             <TextView
                 android:id="@+id/market_title"
@@ -21,12 +18,10 @@
                 android:fontFamily="@font/jomhuria"
                 android:gravity="center_horizontal"
                 android:text="@string/market"
-                android:textColor="#1F1F1F"
+                android:textColor="@color/seed"
                 android:textSize="64sp"
                 app:layout_constraintBottom_toTopOf="@+id/search_view"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/search_view"
@@ -36,10 +31,9 @@
                 android:background="@drawable/search_view_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/market_title"/>
+                app:layout_constraintTop_toBottomOf="@id/market_title"></androidx.appcompat.widget.AppCompatButton>
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/search_view_layout"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_marginEnd="150dp"
                 android:elevation="10dp"
@@ -53,8 +47,7 @@
                     android:layout_height="35dp"
                     android:src="@drawable/search_icon"
                     app:layout_constraintRight_toLeftOf="@id/search_hint"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/search_hint"
@@ -65,7 +58,7 @@
                     android:fontFamily="@font/plus_jakarta_sans"
                     android:gravity="center"
                     android:text="@string/search_hint"
-                    android:textColor="#1F1F1F"
+                    android:textColor="@color/seed"
                     android:textSize="16sp"
                     app:layout_constraintLeft_toRightOf="@+id/search_icon"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -78,24 +71,20 @@
                 android:layout_margin="12dp"
                 android:fontFamily="@font/plus_jakarta_sans"
                 android:text="@string/best_stocks"
-                android:textColor="#1F1F1F"
+                android:textColor="@color/seed"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/search_view_layout"
-                app:layout_constraintBottom_toTopOf="@id/horizontal_recycler_view" />
+                app:layout_constraintBottom_toTopOf="@id/horizontal_fragment"
+                app:layout_constraintTop_toBottomOf="@id/search_view" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/horizontal_recycler_view"
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/horizontal_fragment"
+                android:name="com.alexisboiz.boursewatcher.views.HorizontalStockList"
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:orientation="horizontal"
-                tools:itemCount="5"
-                tools:listitem="@layout/horizontal_stock_item"
-                android:nestedScrollingEnabled="false"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_height="0dp"
                 app:layout_constraintBottom_toTopOf="@id/favorites_title"
-                app:layout_constraintTop_toBottomOf="@id/best_stocks_title"/>
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/best_stocks_title" />
 
             <TextView
                 android:id="@+id/favorites_title"
@@ -104,30 +93,18 @@
                 android:layout_margin="12dp"
                 android:fontFamily="@font/plus_jakarta_sans"
                 android:text="@string/favorites"
-                android:textColor="#1F1F1F"
+                android:textColor="@color/seed"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@id/vertical_recycler_view"
-                app:layout_constraintTop_toBottomOf="@id/horizontal_recycler_view" />
+                app:layout_constraintBottom_toTopOf="@id/vertical_fragment"
+                app:layout_constraintTop_toBottomOf="@id/horizontal_fragment" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/vertical_recycler_view"
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/vertical_fragment"
+                android:name="com.alexisboiz.boursewatcher.views.VerticalStockList"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/vertical_stock_item"
-                tools:itemCount="2"
-                android:orientation="vertical"
-                android:nestedScrollingEnabled="false"
+                android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/favorites_title"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@id/favorites_title" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/coordinator_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </FrameLayout>

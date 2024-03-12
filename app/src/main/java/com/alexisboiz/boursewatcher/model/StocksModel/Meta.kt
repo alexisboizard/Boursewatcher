@@ -1,28 +1,27 @@
-package com.alexisboiz.boursewatcher
+package com.alexisboiz.boursewatcher.model.StocksModel
 
-import com.google.gson.annotations.SerializedName
-
+import java.io.Serializable
 
 data class Meta (
 
-  @SerializedName("currency"             ) var currency             : String?                              = null,
-  @SerializedName("symbol"               ) var symbol               : String?                              = null,
-  @SerializedName("exchangeName"         ) var exchangeName         : String?                              = null,
-  @SerializedName("instrumentType"       ) var instrumentType       : String?                              = null,
-  @SerializedName("firstTradeDate"       ) var firstTradeDate       : Int?                                 = null,
-  @SerializedName("regularMarketTime"    ) var regularMarketTime    : Int?                                 = null,
-  @SerializedName("gmtoffset"            ) var gmtoffset            : Int?                                 = null,
-  @SerializedName("timezone"             ) var timezone             : String?                              = null,
-  @SerializedName("exchangeTimezoneName" ) var exchangeTimezoneName : String?                              = null,
-  @SerializedName("regularMarketPrice"   ) var regularMarketPrice   : Double?                              = null,
-  @SerializedName("chartPreviousClose"   ) var chartPreviousClose   : Double?                              = null,
-  @SerializedName("previousClose"        ) var previousClose        : Double?                              = null,
-  @SerializedName("scale"                ) var scale                : Int?                                 = null,
-  @SerializedName("priceHint"            ) var priceHint            : Int?                                 = null,
-  @SerializedName("currentTradingPeriod" ) var currentTradingPeriod : CurrentTradingPeriod?                = CurrentTradingPeriod(),
-  @SerializedName("tradingPeriods"       ) var tradingPeriods       : ArrayList<ArrayList<TradingPeriods>> = arrayListOf(),
-  @SerializedName("dataGranularity"      ) var dataGranularity      : String?                              = null,
-  @SerializedName("range"                ) var range                : String?                              = null,
-  @SerializedName("validRanges"          ) var validRanges          : ArrayList<String>                    = arrayListOf()
+    val currency             : String?                              = null,
+    val symbol               : String?                              = null,
+    val exchangeName         : String?                              = null,
+    val instrumentType       : String?                              = null,
+    val firstTradeDate       : Int?                                 = null,
+    val regularMarketTime    : Int?                                 = null,
+    val gmtoffset            : Int?                                 = null,
+    val timezone             : String?                              = null,
+    val exchangeTimezoneName : String?                              = null,
+    val regularMarketPrice   : Double?                              = null,
+    val chartPreviousClose   : Double?                              = null,
+    val previousClose        : Double?                              = null,
+    val scale                : Int?                                 = null,
+    val priceHint            : Int?                                 = null,
+    val currentTradingPeriod : CurrentTradingPeriod?                = CurrentTradingPeriod(),
+    val tradingPeriods       : ArrayList<ArrayList<TradingPeriods>> = arrayListOf(),
+    val dataGranularity      : String?                              = null,
+    val range                : String?                              = null,
+    val validRanges          : ArrayList<String>                    = arrayListOf()
 
-)
+) : Serializable

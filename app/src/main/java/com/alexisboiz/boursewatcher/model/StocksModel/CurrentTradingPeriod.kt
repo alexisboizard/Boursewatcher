@@ -1,12 +1,11 @@
-package com.alexisboiz.boursewatcher
+package com.alexisboiz.boursewatcher.model.StocksModel
 
-import com.google.gson.annotations.SerializedName
-
+import java.io.Serializable
 
 data class CurrentTradingPeriod (
 
-  @SerializedName("pre"     ) var pre     : Pre?     = Pre(),
-  @SerializedName("regular" ) var regular : Regular? = Regular(),
-  @SerializedName("post"    ) var post    : Post?    = Post()
+  val pre     : Pre?     = Pre(),
+  val regular : Regular? = Regular(),
+  val post    : Post?    = Post()
 
-)
+) : Serializable

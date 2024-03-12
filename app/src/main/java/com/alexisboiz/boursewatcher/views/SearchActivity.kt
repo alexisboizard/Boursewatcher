@@ -5,12 +5,11 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.lifecycle.lifecycleScope
 import com.alexisboiz.boursewatcher.R
 import com.alexisboiz.boursewatcher.adapters.SearchAdapter
-import com.alexisboiz.boursewatcher.model.Quotes
-import com.alexisboiz.boursewatcher.views.market_fragment.StockViewModel
+import com.alexisboiz.boursewatcher.model.StocksModel.Meta
+import com.alexisboiz.boursewatcher.viewmodel.StockViewModel
 
 class SearchActivity : AppCompatActivity() {
     val stockViewModel by viewModels<StockViewModel>()
@@ -20,49 +19,29 @@ class SearchActivity : AppCompatActivity() {
         setContentView(R.layout.activity_search)
 
         val searchView = findViewById<SearchView>(R.id.search_view)
-        val recyclerView = findViewById<RecyclerView>(R.id.rv_search)
-        val symbolList : MutableList<String> = mutableListOf()
-        var itemList : MutableList<Quotes> = mutableListOf()
+        val recyclerView = findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.search_recycler_view)
+        var listStock : MutableList<Meta> = mutableListOf()
 
         recyclerView.apply {
-            this.layoutManager = LinearLayoutManager(this.context)
+            this.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this.context)
             this.adapter = adapter
         }
 
         searchView.requestFocusFromTouch()
-
-        stockViewModel.stockDetForSearch.observe(this){
-            Log.e("SearchActivity", "onCreate: $it")
-            recyclerView.adapter = SearchAdapter(itemList,it)
-        }
-
         stockViewModel.searchLiveData.observe(this){
             Log.e("SearchActivity", "onCreate: $it")
-            if(it != null){
-                itemList = it
-                for(stock in it){
-                    symbolList.add(stock.symbol!!)
-                }
-                stockViewModel.stockDetailForSearch(symbolList)
-            }
+            recyclerView.adapter = SearchAdapter(it, listStock)
+            recyclerView.adapter?.notifyDataSetChanged()
         }
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                if (query != null) {
-                    if(query.isNotEmpty()){
-                        stockViewModel.search(query!!)
-                    }
-                }
+                stockViewModel.search(query!!)
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText != null) {
-                    if(newText.isNotEmpty()){
-                        stockViewModel.search(newText!!)
-                    }
-                }
+                stockViewModel.search(newText!!)
                 return false
             }
         })

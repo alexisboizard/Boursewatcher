@@ -1,4 +1,4 @@
-package com.alexisboiz.boursewatcher
+package com.alexisboiz.boursewatcher.model.StocksModel
 
 import com.google.gson.annotations.SerializedName
 

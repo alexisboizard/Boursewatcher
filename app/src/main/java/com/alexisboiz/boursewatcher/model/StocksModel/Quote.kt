@@ -1,14 +1,13 @@
-package com.alexisboiz.boursewatcher
+package com.alexisboiz.boursewatcher.model.StocksModel
 
-import com.google.gson.annotations.SerializedName
 
 
 data class Quote (
 
-  @SerializedName("open"   ) var open   : ArrayList<Double> = arrayListOf(),
-  @SerializedName("low"    ) var low    : ArrayList<Double> = arrayListOf(),
-  @SerializedName("volume" ) var volume : ArrayList<Int>    = arrayListOf(),
-  @SerializedName("high"   ) var high   : ArrayList<Double> = arrayListOf(),
-  @SerializedName("close"  ) var close  : ArrayList<Double> = arrayListOf()
+  val low    : ArrayList<Double> = arrayListOf(),
+  val close  : ArrayList<Double> = arrayListOf(),
+  val high   : ArrayList<Double> = arrayListOf(),
+  val volume : ArrayList<Int>    = arrayListOf(),
+  val open   : ArrayList<Double> = arrayListOf()
 
 )

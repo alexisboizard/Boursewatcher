@@ -8,12 +8,6 @@ import android.util.Log
 import android.widget.Toast
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.alexisboiz.boursewatcher.model.UsersModel.UserDetail
-import com.google.firebase.Firebase
-import com.google.firebase.auth.auth
-import com.google.firebase.firestore.firestore
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
@@ -29,10 +23,8 @@ class QrCodeAnalyzer(
     private val previewViewWidth: Float,
     private val previewViewHeight: Float
 ): ImageAnalysis.Analyzer {
-    companion object {
-        private var _processStatusLiveData : MutableLiveData<String> = MutableLiveData()
-        val processStatusLiveData : LiveData<String> = _processStatusLiveData
-    }
+
+
     private var scaleX = 1f
     private var scaleY = 1f
 
@@ -66,8 +58,18 @@ class QrCodeAnalyzer(
                 .addOnSuccessListener { barcodes ->
                     if (barcodes.isNotEmpty()) {
                         for (barcode in barcodes) {
-                            // Handle received barcodes
-                            addFriend(barcode.rawValue.toString(),image)
+                            // Handle received barcodes...
+                            Toast.makeText(
+                                context,
+                                "Value: " + barcode.rawValue,
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                            Log.d("JSON", barcode.rawValue.toString())
+
+                            val json = JsonParser.parseString(barcode.rawValue).asJsonArray
+
+                            Log.d("JSON", json.toString())
                             // Update bounding rect
                             barcode.boundingBox?.let { rect ->
                                 barcodeBoxView.setRect(
@@ -87,57 +89,4 @@ class QrCodeAnalyzer(
 
         image.close()
     }
-    fun addFriend(friendCode : String, image: ImageProxy){
-        val firestore = Firebase.firestore
-        val friendRef = firestore.collection("users")
-        val uid = Firebase.auth.currentUser!!.uid
-        var displayName = ""
-        friendRef.get()
-            .addOnSuccessListener {
-                for (document in it) {
-                    if (document.data["friendCode"] == friendCode) {
-                        displayName = document.data["displayName"].toString()
-                        val friendId = document.id
-                        val userFriendList = firestore.collection("users/${uid}/friendList")
-                        userFriendList.get()
-                            .addOnSuccessListener {
-                                var friendExist = false
-                                for (document2 in it) {
-                                    if (document2.data["friendId"] == friendId) {
-                                        friendExist = true
-                                    }
-                                }
-                                if (!friendExist) {
-                                    val friend = hashMapOf(
-                                        "status" to "not_accepted",
-                                        "friendId" to friendId
-                                    )
-                                    userFriendList.add(friend)
-                                }
-                            }
-                        // ajout dans la liste de l'amis
-                        val friendList = firestore.collection("users/${friendId}/friendList")
-                        friendList.get()
-                            .addOnSuccessListener {
-                                var friendExist = false
-                                for (document2 in it) {
-                                    if (document2.data["friendId"] == uid) {
-                                        friendExist = true
-                                    }
-                                }
-                                if (!friendExist) {
-                                    val friend = hashMapOf(
-                                        "status" to "pending",
-                                        "friendId" to uid
-                                    )
-                                    friendList.add(friend)
-                                }
-                                image.close()
-                                _processStatusLiveData.postValue(displayName)
-                            }
-                    }
-                }
-            }
-    }
-
 }

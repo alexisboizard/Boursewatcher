@@ -50,7 +50,7 @@
                 android:id="@+id/search_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:backgroundTint="#FFFFFF"
+                android:backgroundTint="@color/white"
                 tools:listitem="@layout/search_bar_item"
                 />
         </androidx.cardview.widget.CardView>

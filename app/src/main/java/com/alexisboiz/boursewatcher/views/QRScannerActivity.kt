@@ -12,8 +12,6 @@ import androidx.camera.core.ImageCapture
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.alexisboiz.boursewatcher.R
 import com.alexisboiz.boursewatcher.utils.BarcodeBoxView
 import com.alexisboiz.boursewatcher.utils.CameraUtility
@@ -32,7 +30,6 @@ class QRScannerActivity : AppCompatActivity(), EasyPermissions.PermissionCallbac
     private lateinit var outputDirectory: File
     var viewFinder : androidx.camera.view.PreviewView? = null
 
-
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var barcodeBoxView: BarcodeBoxView
     private lateinit var binding: ActivityQrscannerBinding
@@ -48,12 +45,9 @@ class QRScannerActivity : AppCompatActivity(), EasyPermissions.PermissionCallbac
         addContentView(barcodeBoxView, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
 
         requestPermission()
-        QrCodeAnalyzer.processStatusLiveData.observe(this){
-            if(it.isNotEmpty()){
-                _friendNameLiveData.postValue(it)
-                finish()
-            }
-        }
+
+
+
     }
 
     private fun getOutputDirectory(): File {
@@ -162,8 +156,6 @@ class QRScannerActivity : AppCompatActivity(), EasyPermissions.PermissionCallbac
     }
 
     companion object {
-        private var _friendNameLiveData : MutableLiveData<String> = MutableLiveData()
-        val friendNameLiveData : LiveData<String> = _friendNameLiveData
         const val REQUEST_CODE_CAMERA_PERMISSION = 0
     }
 }

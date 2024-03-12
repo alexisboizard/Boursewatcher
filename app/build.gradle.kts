@@ -2,8 +2,6 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.kapt")
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
 
 }
 
@@ -16,30 +14,12 @@ android {
         applicationId = "com.alexisboiz.boursewatcher"
         minSdk = 24
         targetSdk = 33
-        versionCode = 10
-        versionName = "1.6"
+        versionCode = 1
+        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
-        }
-        buildFeatures{
-            buildConfig = true
-        }
-    }
-
-    flavorDimensions += "env"
-    productFlavors {
-        create("dev") {
-            dimension = "env"
-            versionNameSuffix = "-dev"
-        }
-        create("ppr") {
-            dimension = "env"
-            versionNameSuffix = "-ppr"
-        }
-        create("prod") {
-            dimension = "env"
         }
     }
 
@@ -63,7 +43,7 @@ android {
         repositories {
             google()
             mavenCentral()
-            maven(url="https://jitpack.io")
+            maven(url = "https://jitpack.io")
         }
     }
     buildFeatures{
@@ -79,9 +59,6 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.databinding:library:3.2.0-alpha11")
-    implementation("com.google.firebase:firebase-messaging:23.3.1")
-    implementation("androidx.media3:media3-common:1.1.0")
-    implementation("com.google.firebase:firebase-messaging-ktx:23.3.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -99,26 +76,14 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.2")
 
     // Chart library
-    implementation("com.github.AAChartModel:AAChartCore-Kotlin:7.2.1")
+    implementation("com.github.AAChartModel:AAChartCore-Kotlin:-SNAPSHOT")
 
     //Swipe to refresh
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
 
     //Firebase
-    implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
+    implementation(platform("com.google.firebase:firebase-bom:32.4.1"))
     implementation("com.google.firebase:firebase-auth-ktx")
-    implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
-    implementation("com.google.firebase:firebase-storage")
-    implementation("com.firebaseui:firebase-ui-storage:7.2.0")
-    // Firebase - Crashlytics
-    implementation("com.google.firebase:firebase-crashlytics")
-    implementation("com.google.firebase:firebase-analytics")
-    // Firebase - Realtime Database
-    implementation("com.google.firebase:firebase-database")
-    // Firebase - Firestore
-    implementation("com.google.firebase:firebase-firestore-ktx")
-
-
 
     // Room
     val room_version = "2.5.0"
@@ -148,8 +113,6 @@ dependencies {
     // Easy Permissions
     implementation("pub.devrel:easypermissions:3.0.0")
 
-    // GLIDE
-    implementation("com.github.bumptech.glide:glide:4.16.0")
 
-    implementation("com.google.android.material:material:<version>")
+
 }

@@ -1,9 +1,9 @@
 package com.alexisboiz.boursewatcher.model.StocksModel
 
-import com.alexisboiz.boursewatcher.StockDetails
-import java.io.Serializable
+import retrofit2.Response
+
 
 data class RecyclerHorizontalCard(
-    val stock : StockDetails? = StockDetails(),
-    val chartData : ArrayList<Double> = arrayListOf(),
-) : Serializable
+    val stock : Stock? = Stock(),
+    val chartData : ArrayList<Double> = arrayListOf()
+)
