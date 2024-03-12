@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.alexisboiz.boursewatcher.R
 import com.alexisboiz.boursewatcher.model.NewsModel.News
+import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 
 class NewsAdapter(val newsList : List<News>) : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
@@ -43,7 +44,7 @@ class NewsAdapter(val newsList : List<News>) : RecyclerView.Adapter<NewsAdapter.
         holder.article_title.text = newsList[position].headline
         holder.article_description.text = newsList[position].summary
         if(newsList[position].image != null){
-            Picasso.get().load(newsList[position].image).into(holder.thumnail)
+            Glide.with(holder.context).load(newsList[position].image).into(holder.thumnail)
         }
     }
 }

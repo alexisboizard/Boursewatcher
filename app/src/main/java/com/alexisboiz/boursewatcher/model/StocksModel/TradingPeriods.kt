@@ -1,16 +1,13 @@
-package com.alexisboiz.boursewatcher.model.StocksModel
+package com.alexisboiz.boursewatcher
 
-import android.os.Parcel
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
-import java.io.Serializable
-@Parcelize
+import com.google.gson.annotations.SerializedName
+
 
 data class TradingPeriods (
 
-  val timezone  : String? = null,
-  val end       : Int?    = null,
-  val start     : Int?    = null,
-  val gmtoffset : Int?    = null
+  @SerializedName("timezone"  ) var timezone  : String? = null,
+  @SerializedName("end"       ) var end       : Int?    = null,
+  @SerializedName("start"     ) var start     : Int?    = null,
+  @SerializedName("gmtoffset" ) var gmtoffset : Int?    = null
 
-) : Serializable
+)

@@ -1,14 +1,20 @@
 package com.alexisboiz.boursewatcher
 
+import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import com.alexisboiz.boursewatcher.model.TradedAsset.TradedAsset
+import com.alexisboiz.boursewatcher.utils.LocaleManager
 import com.alexisboiz.boursewatcher.views.market_fragment.StockViewModel
 import com.alexisboiz.boursewatcher.views.AddStockActivity
 import com.alexisboiz.boursewatcher.views.friends_fragment.FriendFragment
 import com.alexisboiz.boursewatcher.views.MainFragment
+import com.alexisboiz.boursewatcher.views.auth.LoginActivity
 import com.alexisboiz.boursewatcher.views.market_fragment.MarketFragment
 import com.alexisboiz.boursewatcher.views.news_fragment.NewsFragment
 import com.alexisboiz.boursewatcher.views.auth.RegisterFragment
@@ -30,11 +36,12 @@ class MainActivity : AppCompatActivity() {
         val database = Firebase.database
         val user = Firebase.auth.currentUser
         if(user == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.main_fragment, RegisterFragment.newInstance())
-                .commitNow()
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
         }else{
+        if (user != null) {
             userId = user.uid
+        }
             val tradedAssetRef = database.getReference("tradedAsset_${user?.uid}")
 
             val navigation = findViewById<BottomNavigationView>(R.id.bottomAppBar)
@@ -108,8 +115,8 @@ class MainActivity : AppCompatActivity() {
             }
 
             firebaseMessaging.subscribeToTopic("information-global")
-        }
-    }
+
+    }}
     companion object {
         var connected: Boolean = false
         var userId = Any()
